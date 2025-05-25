@@ -16,7 +16,6 @@ import {
   IconButton,
   Alert,
   CircularProgress,
-  Divider,
   FormControlLabel,
   Switch,
 } from '@mui/material';
@@ -26,7 +25,6 @@ import {
   Cancel as CancelIcon,
   PhotoCamera as PhotoCameraIcon,
   Add as AddIcon,
-  Delete as DeleteIcon,
 } from '@mui/icons-material';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from '../../store';
@@ -112,13 +110,18 @@ const Profile: React.FC = () => {
   };
 
   const handleNestedInputChange = (parent: string, field: string, value: any) => {
-    setFormData(prev => ({
-      ...prev,
-      [parent]: {
-        ...prev[parent as keyof UpdateProfileRequest],
-        [field]: value
-      }
-    }));
+    setFormData(prev => {
+      const parentData = prev[parent as keyof UpdateProfileRequest];
+      const existingData = parentData && typeof parentData === 'object' ? parentData : {};
+      
+      return {
+        ...prev,
+        [parent]: {
+          ...existingData,
+          [field]: value
+        }
+      };
+    });
   };
 
   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -211,7 +214,7 @@ const Profile: React.FC = () => {
 
       <Grid container spacing={3}>
         {/* Basic Information */}
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Card sx={{ height: 'fit-content' }}>
             <CardContent>
               <Typography variant="h6" gutterBottom display="flex" alignItems="center" gap={1}>
@@ -260,7 +263,7 @@ const Profile: React.FC = () => {
               </Box>
 
               <Grid container spacing={2}>
-                <Grid item xs={6}>
+                <Grid size={{ xs: 6 }}>
                   <TextField
                     fullWidth
                     label="First Name"
@@ -271,7 +274,7 @@ const Profile: React.FC = () => {
                     InputProps={{ readOnly: !isEditing }}
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid size={{ xs: 6 }}>
                   <TextField
                     fullWidth
                     label="Last Name"
@@ -282,7 +285,7 @@ const Profile: React.FC = () => {
                     InputProps={{ readOnly: !isEditing }}
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid size={{ xs: 6 }}>
                   <TextField
                     fullWidth
                     label="Email"
@@ -293,7 +296,7 @@ const Profile: React.FC = () => {
                     helperText="Email cannot be changed"
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid size={{ xs: 6 }}>
                   <TextField
                     fullWidth
                     label="Phone"
@@ -304,7 +307,7 @@ const Profile: React.FC = () => {
                     InputProps={{ readOnly: !isEditing }}
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid size={{ xs: 6 }}>
                   <TextField
                     fullWidth
                     label="Date of Birth"
@@ -317,7 +320,7 @@ const Profile: React.FC = () => {
                     InputLabelProps={{ shrink: true }}
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid size={{ xs: 6 }}>
                   <FormControl fullWidth disabled={!isEditing} variant={isEditing ? 'outlined' : 'standard'}>
                     <InputLabel>Gender</InputLabel>
                     <Select
@@ -338,14 +341,14 @@ const Profile: React.FC = () => {
         </Grid>
 
         {/* Address Information */}
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Card sx={{ height: 'fit-content' }}>
             <CardContent>
               <Typography variant="h6" gutterBottom>
                 Address Information
               </Typography>
               <Grid container spacing={2}>
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <TextField
                     fullWidth
                     label="Street Address"
@@ -356,7 +359,7 @@ const Profile: React.FC = () => {
                     InputProps={{ readOnly: !isEditing }}
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid size={{ xs: 6 }}>
                   <TextField
                     fullWidth
                     label="City"
@@ -367,7 +370,7 @@ const Profile: React.FC = () => {
                     InputProps={{ readOnly: !isEditing }}
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid size={{ xs: 6 }}>
                   <TextField
                     fullWidth
                     label="State"
@@ -378,7 +381,7 @@ const Profile: React.FC = () => {
                     InputProps={{ readOnly: !isEditing }}
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid size={{ xs: 6 }}>
                   <TextField
                     fullWidth
                     label="ZIP Code"
@@ -389,7 +392,7 @@ const Profile: React.FC = () => {
                     InputProps={{ readOnly: !isEditing }}
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid size={{ xs: 6 }}>
                   <TextField
                     fullWidth
                     label="Country"
@@ -406,14 +409,14 @@ const Profile: React.FC = () => {
         </Grid>
 
         {/* Emergency Contact */}
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Card>
             <CardContent>
               <Typography variant="h6" gutterBottom>
                 Emergency Contact
               </Typography>
               <Grid container spacing={2}>
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <TextField
                     fullWidth
                     label="Contact Name"
@@ -424,7 +427,7 @@ const Profile: React.FC = () => {
                     InputProps={{ readOnly: !isEditing }}
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid size={{ xs: 6 }}>
                   <TextField
                     fullWidth
                     label="Relationship"
@@ -435,7 +438,7 @@ const Profile: React.FC = () => {
                     InputProps={{ readOnly: !isEditing }}
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid size={{ xs: 6 }}>
                   <TextField
                     fullWidth
                     label="Phone Number"
@@ -452,14 +455,14 @@ const Profile: React.FC = () => {
         </Grid>
 
         {/* Medical Information */}
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Card>
             <CardContent>
               <Typography variant="h6" gutterBottom>
                 Medical Information
               </Typography>
               <Grid container spacing={2}>
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <TextField
                     fullWidth
                     label="Blood Type"
@@ -472,7 +475,7 @@ const Profile: React.FC = () => {
                 </Grid>
                 
                 {/* Allergies */}
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <Typography variant="subtitle2" gutterBottom>
                     Allergies
                   </Typography>
@@ -508,7 +511,7 @@ const Profile: React.FC = () => {
                 </Grid>
 
                 {/* Chronic Conditions */}
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <Typography variant="subtitle2" gutterBottom>
                     Chronic Conditions
                   </Typography>
@@ -544,7 +547,7 @@ const Profile: React.FC = () => {
                 </Grid>
 
                 {/* Current Medications */}
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <Typography variant="subtitle2" gutterBottom>
                     Current Medications
                   </Typography>
@@ -584,14 +587,14 @@ const Profile: React.FC = () => {
         </Grid>
 
         {/* Preferences */}
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <Card>
             <CardContent>
               <Typography variant="h6" gutterBottom>
                 Preferences & Settings
               </Typography>
               <Grid container spacing={3}>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <Typography variant="subtitle2" gutterBottom>
                     Notification Preferences
                   </Typography>
@@ -635,7 +638,7 @@ const Profile: React.FC = () => {
                     label="Push Notifications"
                   />
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <Typography variant="subtitle2" gutterBottom>
                     Account Information
                   </Typography>

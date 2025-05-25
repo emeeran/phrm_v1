@@ -6,9 +6,7 @@ import {
   Box,
   Grid,
   Avatar,
-  Chip,
   IconButton,
-  LinearProgress,
 } from '@mui/material';
 import {
   Favorite,
@@ -105,45 +103,54 @@ const DashboardCards: React.FC = () => {
 
   const healthMetrics = [
     {
+      title: 'Heart Rate',
+      value: '72 BPM',
+      icon: <Favorite />,
+      color: theme.palette.error.main,
+      trend: 'stable' as const,
+    },
+    {
       title: 'Family Members',
       value: 4,
       icon: <Group />,
       color: theme.palette.primary.main,
-      action: () => console.log('Add family member'),
+      trend: 'up' as const,
+      trendValue: '+1',
     },
     {
       title: 'Active Medications',
       value: 3,
       icon: <Medication />,
-      color: theme.palette.secondary.main,
+      color: theme.palette.success.main,
       trend: 'stable' as const,
-      trendValue: 'No changes',
     },
     {
       title: 'Upcoming Appointments',
       value: 2,
       icon: <Event />,
       color: theme.palette.warning.main,
-      action: () => console.log('Schedule appointment'),
-    },
-    {
-      title: 'Health Score',
-      value: '85%',
-      icon: <Favorite />,
-      color: theme.palette.success.main,
       trend: 'up' as const,
-      trendValue: '+5% this month',
+      trendValue: '+1',
     },
   ];
 
   return (
-    <Grid container spacing={3}>
-      {healthMetrics.map((metric, index) => (
-        <Grid item xs={12} sm={6} md={3} key={index}>
-          <HealthMetricCard {...metric} />
-        </Grid>
-      ))}
-    </Grid>
+    <Box>
+      <Grid container spacing={3}>
+        {healthMetrics.map((metric, index) => (
+          <Grid size={{ xs: 12, sm: 6, md: 3 }} key={index}>
+            <HealthMetricCard
+              title={metric.title}
+              value={metric.value}
+              icon={metric.icon}
+              color={metric.color}
+              trend={metric.trend}
+              trendValue={metric.trendValue}
+            />
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
   );
 };
 

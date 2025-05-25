@@ -8,9 +8,12 @@ import DashboardCards from './components/dashboard/DashboardCards';
 import RecentActivity from './components/dashboard/RecentActivity';
 import QuickActions from './components/dashboard/QuickActions';
 import Profile from './components/profile/Profile';
+import FamilyManagement from './components/family/FamilyManagement';
+import MedicationManagement from './components/medications/MedicationManagement';
+import AppointmentManagement from './components/appointments/AppointmentManagement';
 import { Typography, Box, Grid } from '@mui/material';
 
-// Placeholder components for routes
+// Dashboard component
 const Dashboard = () => (
   <Box>
     <Typography variant="h4" fontWeight={700} gutterBottom>
@@ -27,46 +30,13 @@ const Dashboard = () => (
     
     {/* Recent Activity and Quick Actions */}
     <Grid container spacing={3}>
-      <Grid item xs={12} lg={8}>
+      <Grid size={{ xs: 12, lg: 8 }}>
         <RecentActivity />
       </Grid>
-      <Grid item xs={12} lg={4}>
+      <Grid size={{ xs: 12, lg: 4 }}>
         <QuickActions />
       </Grid>
     </Grid>
-  </Box>
-);
-
-const Family = () => (
-  <Box>
-    <Typography variant="h4" gutterBottom>
-      Family Members
-    </Typography>
-    <Typography variant="body1">
-      Manage your family members' health records.
-    </Typography>
-  </Box>
-);
-
-const Medications = () => (
-  <Box>
-    <Typography variant="h4" gutterBottom>
-      Medications
-    </Typography>
-    <Typography variant="body1">
-      Track medications and prescriptions.
-    </Typography>
-  </Box>
-);
-
-const Appointments = () => (
-  <Box>
-    <Typography variant="h4" gutterBottom>
-      Appointments
-    </Typography>
-    <Typography variant="body1">
-      Manage medical appointments and schedules.
-    </Typography>
   </Box>
 );
 
@@ -86,9 +56,9 @@ function App() {
     <DashboardLayout>
       <Routes>
         <Route path="/" element={<Dashboard />} />
-        <Route path="/family" element={<Family />} />
-        <Route path="/medications" element={<Medications />} />
-        <Route path="/appointments" element={<Appointments />} />
+        <Route path="/family" element={<FamilyManagement />} />
+        <Route path="/medications" element={<MedicationManagement />} />
+        <Route path="/appointments" element={<AppointmentManagement />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/logout" element={<Navigate to="/" replace />} />
         <Route path="*" element={<Navigate to="/" replace />} />
